@@ -1,0 +1,27 @@
+function main()
+	{
+	var t = createArray(3)
+	setArray(t,0,"testing")
+	setArray(t,1,"array")
+	setArray(t,2,"functions")
+	print(getArray(t,0)," ",getArray(t,1)," ",getArray(t,2))
+	
+	t = createArray(5)
+	setArray(t,0,1)
+	setArray(t,1,2)
+	setArray(t,2,3)
+	setArray(t,3,4)
+	setArray(t,4,5)
+	print(">line",getArray(t,0)," ")	
+	print(getArray(t,1)," ")	
+	print(getArray(t,2)," ")	
+	print(getArray(t,3)," ")	
+	print(getArray(t,4)," ")	
+	
+	t = createArray(2)
+	setArray(t,0,true)
+	setArray(t,1,false)
+	print(">line",getArray(t,0)," ",getArray(t,1))
+	}
+main()
+

@@ -1,0 +1,470 @@
+~AVL TREE HELPER FUNCTIONS~
+function createNode(key,value,parent,balance)
+	{
+	var g = createArray(8)
+	setKey(g,key)
+	setValue(g,value)
+	setParent(g,parent)
+	setH(g,1)
+	setLeft(g,nil)
+	setLeftH(g,0)
+	setRightH(g,0)
+	setRight(g,nil)
+	g
+	}
+function getKey(array)
+	{
+	getArray(array,0)
+	}
+
+function getValue(array)
+	{
+	getArray(array,1)
+	}
+
+function getLeft(array)
+	{
+	getArray(array,2)
+	}
+
+function getRight(array)
+	{
+	getArray(array,3)
+	}
+
+function getParent(array)
+	{
+	getArray(array,4)
+	}
+
+function getH(array)
+	{
+	getArray(array,5)
+	}
+function getLeftH(array)
+	{
+	getArray(array,6)
+	}
+function getRightH(array)
+	{
+	getArray(array,7)
+	}
+
+function setKey(array,value)
+	{
+	setArray(array,0,value)
+	}
+
+function setValue(array,value)
+	{
+	setArray(array,1,value)
+	}
+
+function setLeft(array,value)
+	{
+	setArray(array,2,value)
+	}
+
+function setRight(array,value)
+	{
+	setArray(array,3,value)
+	}
+
+function setParent(array,value)
+	{
+	setArray(array,4,value)
+	}
+
+function setH(array,value)
+	{
+	setArray(array,5,value)
+	}
+function setLeftH(array,value)
+	{
+	setArray(array,6,value)
+	}
+function setRightH(array,value)
+	{
+	setArray(array,7,value)
+	}
+
+function getSib(node)
+	{
+	if (getLeft(getParent(node)) eq node)
+		{
+		getRight(getParent(node))
+		}
+	else
+		{
+		getLeft(getParent(node))
+		}
+	}	
+
+function isNotLinear(child,parent,grandparent)
+	{
+	if (getLeft(parent) eq child)
+		{
+		if (getRight(grandparent) eq parent)
+				{
+				true
+				}
+		else
+				{
+				false
+				}
+		}
+	else
+		{
+		if (getLeft(grandparent) eq parent)
+			{
+			true
+			}
+		else
+			{
+			false
+			}
+		}
+	}
+	
+function compare(varA,varB)
+	{
+	if (isInt(varA) and isInt(varB))
+		{
+		if (varA > varB)
+			{
+			1
+			}
+		else if (varA eq varB)
+			{
+			0
+			}
+		else
+			{
+			-1
+			}
+		}
+	else if (isInt(varA) and !(isInt(varB)))
+		{
+		-1
+		}
+	else if (!(isInt(varA)) and isInt(varB))
+		{
+		1
+		}
+	else 
+		{
+		strCompare(varA,varB)
+		}
+	}
+	
+				
+
+
+~END OF HELPER FUNCTIONS~
+function findAVL(root,key)
+	{
+	var toReturn
+	var continue = true
+	if (root eq nil)
+		{
+		continue = false
+		toReturn = nil
+		}
+	var curr = root
+	while (continue)
+		{
+		if(compare(key,getKey(curr)) > 0)
+			{
+			if (getRight(curr) eq nil)
+				{
+				toReturn = nil
+				continue = false		
+				}
+			else 
+				{
+				curr = getRight(curr)	
+				}
+			}
+		else if(compare(key,getKey(curr)) eq 0)
+			{
+			toReturn = getValue(curr)
+			continue = false
+			}
+		else
+			{
+			if(compare(key,getKey(curr)) < 0)
+				{
+				if (getLeft(curr) eq nil)
+					{
+					toReturn = nil
+					continue = false		
+					}
+				else 
+					{
+					curr = getLeft(curr)	
+					}
+				}
+			}
+			
+		}
+	toReturn
+	}
+function insertAVL(root,key,value)
+	{
+	var continue = true
+	if (root eq nil)
+		{
+		root = createNode(key,value,root,0)
+		continue = false
+		}
+	var curr = root
+	while (continue)
+		{
+		if(compare(key,getKey(curr)) > 0)
+			{
+			if (getRight(curr) eq nil)
+				{
+				setRight(curr,createNode(key,value,curr,0))
+				root = insertFixUp(getRight(curr),root)
+				continue = false		
+				}
+			else 
+				{
+				curr = getRight(curr)	
+				}
+			}
+		else if(compare(key,getKey(curr)) eq 0)
+			{
+			setValue(curr,value)
+			continue = false
+			}
+		else
+			{
+			if(compare(key,getKey(curr)) < 0)
+				{
+				if (getLeft(curr) eq nil)
+					{
+					setLeft(curr,createNode(key,value,curr,0))
+					root = insertFixUp(getLeft(curr),root) 
+					continue = false		
+					}
+				else 
+					{
+					curr = getLeft(curr)	
+					}
+				}
+			}
+			
+		}
+	root 
+	}
+function insertFixUp(x,root)
+	{
+	var continue = true
+	while (!(x eq root) and continue)
+		{
+		if (getFavorite(getParent(x)) eq getSib(x))
+			{
+			setBalance(getParent(x))
+			continue = false
+			}
+		else if (getFavorite(getParent(x)) eq 0)
+			{
+			setBalance(getParent(x))
+			x = getParent(x)
+			}
+		else
+			{
+			var y = getFavorite(x)
+			var p = getParent(x)
+			if (!(y eq nil) and isNotLinear(y,x,p))
+				{
+				root = rotateNL(y,x,p,root) ~rotate y to x~
+				root = rotateL(x,y,p,root) ~rotate y to p~			
+				setBalance(x)
+				setBalance(p)
+				setBalance(y)
+				}
+			else
+				{
+				root = rotateL(y,x,p,root) ~rotate x to p~
+				setBalance(p)
+				setBalance(x)
+				}
+			continue = false	
+			}
+		}
+	root
+	}
+function rotateL(node,parent,grandParent,root)
+	{
+	if (nil eq getParent(grandParent))
+		{
+		root = parent  
+		if (getLeft(parent) eq node)
+			{
+			setParent(parent,nil)
+			if (!(getRight(parent) eq nil))
+				{
+				setParent(getRight(parent),grandParent)
+				}
+			setLeft(grandParent,getRight(parent))
+			setRight(parent,grandParent)
+			setParent(grandParent,parent)
+			}
+		else
+			{
+			setParent(parent,nil)
+			if (!(getLeft(parent) eq nil))
+				{
+				setParent(getLeft(parent),grandParent)
+				}
+			setRight(grandParent,getLeft(parent))
+			setLeft(parent,grandParent)
+			setParent(grandParent,parent)
+			}
+		}
+	else if (getLeft(parent) eq node)
+		{
+		setLeft(getParent(grandParent),parent)
+		setParent(parent,getParent(grandParent))
+		if (!(getRight(parent) eq nil))
+			{
+			setParent(getRight(parent),grandParent)
+			}
+		setLeft(grandParent,getRight(parent))
+		setRight(parent,grandParent)
+		setParent(grandParent,parent)
+		}
+	else
+		{
+		setRight(getParent(grandParent),parent)
+		setParent(parent,getParent(grandParent))
+		if (!(getLeft(parent) eq nil))
+			{
+			setParent(getLeft(parent),grandParent)
+			}
+		setRight(grandParent,getLeft(parent))
+		setLeft(parent,grandParent)
+		setParent(grandParent,parent)
+		}
+	root
+	}		 
+		
+function rotateNL(node,parent,grandParent,root)
+	{
+	if (nil eq grandParent)
+		{
+		root = node
+		if (getLeft(parent) eq node)
+			{
+			if (!(getRight(parent) eq nil))
+				{
+				setParent(getRight(parent),grandParent)
+				}
+			setLeft(parent,getRight(node))
+			setRight(node,parent)
+			setParent(parent,node)
+			setParent(node,nil)
+			}
+		else
+			{
+			if (!(getLeft(parent) eq nil))
+				{
+				setParent(getLeft(parent),grandParent)
+				}
+			setRight(parent,getLeft(node))
+			setLeft(node,parent)
+			setParent(parent,node)
+			setParent(node,nil)
+			}
+		}
+	else if (getLeft(parent) eq node)
+		{
+		if (!(getRight(parent) eq nil))
+			{
+			setParent(getRight(parent),grandParent)
+			}
+		setRight(grandParent,node)
+		setParent(node,grandParent)
+		setLeft(parent,getRight(node))
+		setRight(node,parent)
+		setParent(parent,node)
+		}
+	else
+		{
+		if (!(getLeft(parent) eq nil))
+			{
+			setParent(getLeft(parent),grandParent)
+			}
+		setLeft(grandParent,node)
+		setParent(node,grandParent)
+		setRight(parent,getLeft(node)) 
+		setLeft(node,parent)
+		setParent(parent,node)
+		}
+	root
+	}		 
+		
+		
+function getFavorite(x)
+	{
+	if (getLeftH(x) > getRightH(x))
+		{
+		getLeft(x)
+		}
+	else if (getLeftH(x) < getRightH(x))
+		{
+		getRight(x)
+		}
+	else
+		{
+		0	
+		}
+	}
+		
+function setBalance(x)
+	{
+	if (getLeft(x) eq nil)
+		{
+		setLeftH(x,0)
+		}
+	else
+		{
+		setLeftH(x,getH(getLeft(x)))
+		}
+	if (getRight(x) eq nil)
+		{
+		setRightH(x,0)
+		}
+	else
+		{
+		setRightH(x,getH(getRight(x)))
+		}
+	if (getLeftH(x) > getRightH(x))
+		{
+		setH(x,getLeftH(x) + 1)
+		}
+	else
+		{
+		setH(x,getRightH(x) + 1)
+		}
+	}
+
+~USER DICT FUNCTIONS~
+function dictCreate()
+	{
+	var root = nil
+	var g = createArray(1)	
+	setArray(g,0,root)
+	g
+	}
+function dictSet(dict,key,value)
+	{
+	setArray(dict,0,insertAVL(getArray(dict,0),key,value))
+	}
+function dictFind(dict,key)
+	{
+	findAVL(getArray(dict,0),key)
+	}
+~USER DICT FUNCTIONS~

@@ -1,0 +1,75 @@
+function rpn()
+	{
+	var size = 0 
+	var capacity = 50
+	var stack = createArray(50)	
+	var c = getIn("std")
+	var readIn = true
+	while (readIn)
+		{
+		if (isInt(c))
+			{
+			if (size < capacity)
+				{
+				setArray(stack,size,c)
+				size = size + 1	
+				}
+			else
+				{
+				tempstack = createArray(capacity * 2)
+				capacity = capacity * 2
+				var i = 0
+				while (i < (size + 1))
+					{
+					setArray(tempstack,i,getArray(stack,i))
+					i = i + 1
+					}
+				stack = tempstack
+				setArray(stack,size,c)
+				size = size + 1
+				}
+			}
+		else if (c eq "+")
+			{
+			setArray(stack,size-2,getArray(stack,size-2) + getArray(stack,size-1))
+			setArray(stack,size-1,0)
+			size = size -1
+			}
+		else if (c eq "*")
+			{
+			setArray(stack,size-2,getArray(stack,size-2) * getArray(stack,size-1))
+			setArray(stack,size-1,0)
+			size = size -1
+			}
+		else if (c eq "-")
+			{
+			setArray(stack,size-2,getArray(stack,size-2) - getArray(stack,size-1))
+			setArray(stack,size-1,0)
+			size = size -1
+			}
+		else if (c eq "/")
+			{
+			setArray(stack,size-2,getArray(stack,size-2) / getArray(stack,size-1))
+			setArray(stack,size-1,0)
+			size = size -1
+			}
+		else if (c eq "^")
+			{
+			setArray(stack,size-2,getArray(stack,size-2) ^ getArray(stack,size-1))
+			setArray(stack,size-1,0)
+			size = size -1
+			}
+		else if (c eq "=")
+			{
+			print("final result: ",getArray(stack,0))
+			readIn = false
+			}	
+		
+		else
+			{
+			print("Error: not a valid number or operation")
+			}
+		c = getIn("std")
+		}
+	}
+rpn()	

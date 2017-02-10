@@ -1,0 +1,87 @@
+
+Grammar for DPL 
+rnflaget@crimson.ua.edu
+Updated 11/13/16 @ 11:13 PM
+
+
+/*************************************OVERALL NOTES ************************************** 
+
+--Removed semicolon
+--expr op expr issues left recursion?? think this is currently correct
+-- 1 + 3 + 4 expressions??
+--is functioncall necessary?
+--optStatement
+
+*****************************************************************************************/
+
+program: optProgramExprList
+
+//program  : PROGRAM OPEN_BRACE optProgramExprList MAIN functionDef CLOSE_BRACE
+
+optProgramExprList  : programExprList | *empty*
+
+programExprList  :  functionDef
+	     	 |  functionDef programExprList
+	     	 |  varDef
+	     	 |  varDef programExprList
+	     	 |  functionCall
+		 |  functionCall programExprList
+unary   : NUMBER
+	| VARIABLE
+	| BOOLEAN
+	| STRING
+	| ARRAY
+	| NIL
+	| OPEN_PAREN expr CLOSE_PAREN
+	| MINUS unary
+        | VARIABLE OPEN_PAREN optExprList CLOSE_PAREN
+
+expr    : unary
+        | unary operator expr //should be expr operator unary?
+
+operation : PLUS | TIMES | DIVIDES | MINUS | MOD | EXP | ASSIGN | logicalOperator
+//operator is a keyword in c++
+
+logicalOperator: EQUAL | GREATERTHAN | LESSTHAN | AND | OR
+
+exprList : expr
+         | expr COMMA exprList
+
+optExprList : exprList | *empty*
+
+ifStatement : IF OPEN_PAREN expr CLOSE_PAREN block optElse
+
+optElse : ELSE block
+	| ELSE ifStatement
+	| *empty*
+
+block   : OPEN_BRACE statements CLOSE_BRACE
+
+statements : statement //add in optStatements???????
+ 	   | statement statements
+
+statement : expr 
+	  | ifStatement
+          | whileLoop
+          | forLoop
+	  | varDef
+	  | functionCall
+	  | functionDef
+
+whileLoop: WHILE OPEN_PAREN expr CLOSE_PAREN block
+
+varDef : VAR VARIABLE ASSIGN expr 
+       | VAR VARIABLE
+       | VAR VARIABLE ASSIGN functionDef	 
+
+functionDef: FUNCTION VARIABLE OPEN_PAREN optParameterList CLOSE_PAREN block
+	     | ANON OPEN_PAREN optParameterList CLOSE_PAREN block
+
+functionCall: VARIABLE OPEN_PAREN optExprList CLOSE_PAREN
+	      | ANON OPEN_PAREN optParamterList CLOSE_PAREN block OBRACKET optExprList CBRACKET 
+
+optParameterList: parameterList | *empty*
+
+parameterList: VARIABLE
+	     | VARIABLE COMMA parameterList
+

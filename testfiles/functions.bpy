@@ -1,0 +1,27 @@
+function main(x)
+	{
+	x(10)
+	}
+
+function g(val)
+	{
+	var i = 0  
+	while (i < val)
+		{
+		print("this called time #", i, ">line")
+		i = i + 1
+		}
+	}
+
+function anonShow(x)
+	{
+	print("anon func1: ", x(12), ">line")
+	var g = anon (g) {g + 3}
+	print("anon func2: ", g(12), ">line")
+	print("anon func3: ", anon (k) {k / 2} [4])
+	}
+
+main(g)
+anonShow(anon (z) {z + 1000})
+	
+

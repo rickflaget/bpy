@@ -1,0 +1,8 @@
+function main()
+	{
+	var t = dictCreate()
+	dictSet(t, 3, "blah")
+	dictSet(t, 4, "blah")
+	dictSet(t, 5, "blah")
+	}
+main()

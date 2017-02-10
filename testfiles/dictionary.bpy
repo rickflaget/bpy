@@ -1,0 +1,17 @@
+function main()
+	{
+	var dict = dictCreate()
+	dictSet(dict,"WI","WISCONSIN")
+	dictSet(dict,"MI","MICHIGAN")
+	dictSet(dict,"TX","TEXAS")
+	dictSet(dict,"CA","CALIFORNIA")
+	dictSet(dict,"AL","ALABAMA")
+	dictSet(dict,"KY","KENTUCKY")
+	print(dictFind(dict,"KY"),">line")
+	print(dictFind(dict,"AL"),">line")
+	print(dictFind(dict,"CA"),">line")
+	print(dictFind(dict,"TX"),">line")
+	print(dictFind(dict,"MI"),">line")
+	print(dictFind(dict,"WI"),">line")
+	}
+main()

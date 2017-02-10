@@ -1,0 +1,31 @@
+function main(x)
+	{
+	print("x is: ", x , ">line")
+	if (x eq 100)
+		{
+		print("x is equal to 100", ">line")
+		}
+	else if ((x > 100) and ((x % 2) eq 0))
+		{
+		print("x is greater than 100 and even",">line")
+		}
+	else if ((x > 100) or (x < 50))
+		{
+		print("x is greater than 100 or less than 50",">line")
+		}
+	else if (!(x > 100))
+		{
+		print("x is not greater than 100",">line")
+		}
+	else
+		{
+		print("uh oh")
+		}
+		
+	}
+
+main(100)
+main(144)
+main(22)
+main(155)
+main(55)

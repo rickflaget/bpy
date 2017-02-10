@@ -1,0 +1,9 @@
+function main(x,y)
+	{
+	while (1) 
+		{
+		x + y;
+		}
+	}
+
+main(1,2)	

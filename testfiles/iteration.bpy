@@ -1,0 +1,26 @@
+function fib(n)
+	{
+	if (n eq 0)
+		{
+		print(0, " ")
+		}
+	else
+		{
+		var x = 0
+		var y = 1
+		var i = 1
+		var z = 0
+		while (i < n)
+			{
+			z = x + y
+			x = y
+			y = z
+			i = i + 1
+			}
+		print(y," ")
+		}
+	}
+
+fib(5)
+fib(6)
+fib(7)

@@ -1,0 +1,7 @@
+/home/rickflaget/dpl
+Thu Dec  1 22:14:37 STD 2016
+dict.bpy      evaluate.h	lexer.h       recognizer.cpp
+dpl	      grammar.txt	makefile      recognizer.h
+ENV.cpp       grammartypes.cpp	practice.cpp  rnflaget@crimson.ua.edu
+ENV.h	      grammartypes.h	practice.h    testfiles
+evaluate.cpp  lexer.cpp		README	      WORKING

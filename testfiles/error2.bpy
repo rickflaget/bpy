@@ -1,0 +1,13 @@
+function main(x,y)
+	{
+	if (true
+		{
+		print("do this")
+		}
+	else
+		{
+		print("or this")
+		}
+	}
+
+main(x,y)

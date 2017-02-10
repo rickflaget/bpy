@@ -1,0 +1,84 @@
+Rick Flaget rnflaget@crimson.ua.edu
+
+Implementede using C++.
+Main function in recognizer.cpp
+
+Files:
+grammartypes.cpp: contains enumerated types that defines each lexeme
+lexer.cpp: contains both the lexer and lexeme class files, as well as the original scanner function(not called)
+recognizer.cpp: contains the main function, as well as the recognizer, and pretty Printer function
+ENV.cpp: contains the enviorment functions
+evaluate.cpp: contains the eval functions and their helpers
+dict.bpy: contains .bpy implementation of dictionaries
+directory "testfiles": contains all files used in makefile testing
+
+This language's grammar can be found in the grammar.txt file.
+
+comments can be used by the ~ key on either side of the commented section
+
+ex: ~ *commented material here* ~
+
+return value is last line of function
+
+types of values: integers,strings,booleans,arrays
+
+arrays are implemented using C++'s vectors.
+
+conditionals: and, or, !, eq, >, <
+
+assignment: =
+
+iteration: while loops are implemented as in C++
+
+operators:
+ints:   + addition
+        - subtraction
+	/ division
+	* multiplication
+	% mod
+	^ exponent
+strings:
+	+ concatenation
+	else: return left value
+
+boolean:
+	+ set to 1
+	- set to 0
+	else: return left value
+
+array: return left value
+
+mixed: return left value
+
+function definitions are called by keyword function *function name* (parameters) {block}
+
+variable definitions are called by keyword var *variable name* and can be followed by assignment
+
+array functions are: createArray(*sizeOfarray*)
+		     setArray(*arrayName*,*location*, *setToValue) //sets value at location
+	             getArray(*arrayName*,*location*) // gets value at location	
+
+other builtin functions:
+		print( , , );
+		can be filled by functionCalls, expr, etc.
+		newline: ">line"
+		tab ">tab"
+		getIn("std") reads in input from the console
+		isInt(*value*) tells if input value is an integer
+
+Anonymus functions are implemented as such:
+
+	anon (*parameters*) {*block*} [arguments]
+	or anon (*parameters*) {*block*}
+	
+anon functions can be called in the same matter as function calls
+	*func name(arguments) if they are assigned to a variable or passed to a function
+
+nil is used as the NULL value of the language
+
+dictionary implemented using AVL tree by arrays
+var *namehere* = dictCreate() //creates null dictionary
+dictSet(*dictName*,*key*,*value*) //sets *dictName* dictionary key to value
+dictFind(*dictName*,*key*) //finds and returns value at key
+Implementation for dictionaries can be found in dict.bpy
+
